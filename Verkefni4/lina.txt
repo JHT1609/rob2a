@@ -1,0 +1,12 @@
+//röð
+Center
+Right
+Left
+//á gólfi
+190
+490
+600
+//á svörtu línunni
+2715
+604
+727
