@@ -16,7 +16,7 @@ void turn(){
 }
 
 task stopMyTask(){
-	while(SensorValue[stopButton] == 0 && vexRT[Btn7L]==0){ //medan ekki er itt a takka gerist ekki, annars keirir stopalltasks
+	while(SensorValue[stopButton] == 0 && vexRT[Btn7L]==0){
 		}
 		StopAllTasks();
 }
@@ -34,13 +34,12 @@ task main()
 	StartTask(stopMyTask);
 	StartTask(ultraSonic);
 
-  wait1Msec(2000);          // The program waits for 2000 milliseconds before continuing.
+  wait1Msec(2000);      
 
-  int threshold = 2150;      /* found by taking a reading on both DARK and LIGHT    */
-                            /* surfaces, adding them together, then dividing by 2. */
+  int threshold = 2150;     
+                            
   while(true)
   {
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
     displayLCDCenteredString(0, "LEFT  CNTR  RGHT");        //  Display   |
     displayLCDPos(1,0);                                     //  Sensor    |
     displayNextLCDNumber(SensorValue(lineFollowerLEFT));    //  Readings  |
@@ -48,29 +47,20 @@ task main()
     displayNextLCDNumber(SensorValue(lineFollowerCENTER));  //            |
     displayLCDPos(1,12);                                    //  L  C  R   |
     displayNextLCDNumber(SensorValue(lineFollowerRIGHT));   //  x  x  x   |
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
 
-		// CENTER sensor sees dark:
     if(SensorValue(lineFollowerCENTER) > threshold)
     {
-      // go straight
       motor[leftMotor]  = 63;
       motor[rightMotor] = 63;
     }
-    // RIGHT sensor sees dark:
     else if(SensorValue(lineFollowerRIGHT) > threshold)
     {
-      // counter-steer right:
       motor[leftMotor]  = 0;
       motor[rightMotor] = 63;
     }
-    // LEFT sensor sees dark:
     else if(SensorValue(lineFollowerLEFT) > threshold)
     {
-      // counter-steer left:
       motor[leftMotor]  = 63;
       motor[rightMotor] = 0;
     }
   }
-}
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
